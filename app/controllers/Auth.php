@@ -21,7 +21,7 @@ class Auth extends Controller {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            
+
             $user = $this->model('User_model')->getUserByUsername($username);
             
             if ($user) {
@@ -53,5 +53,20 @@ class Auth extends Controller {
         session_destroy();
         header('Location: ' . BASEURL . '/auth/login');
         exit;
+    }
+
+    // buat user baru (hanya untuk inisialisasi, bisa dihapus nanti)
+    public function createUser()
+    {
+        $user = [
+            'username' => 'admin',
+            'password' => 'admin123',
+            'name'     => 'Administrator'
+        ];
+
+        $userModel = $this->model('User_model');
+        $userModel->addUser($user);
+
+        echo "User baru berhasil dibuat.";
     }
 }

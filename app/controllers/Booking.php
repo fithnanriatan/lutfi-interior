@@ -1,7 +1,8 @@
 <?php
 
-class Booking extends Controller {
-    
+class Booking extends Controller
+{
+
     public function __construct()
     {
         // Cek login
@@ -10,18 +11,19 @@ class Booking extends Controller {
             exit;
         }
     }
-    
+
     // Halaman daftar booking
     public function index()
     {
         $data['title'] = 'Kelola Pemesanan - Lutfi Interior';
         $data['bookings'] = $this->model('Booking_model')->getAllBookings();
-        
+        $data['services'] = $this->model('Service_model')->getAllServices();
+
         $this->view('templets/admin_header', $data);
         $this->view('admin/booking/index', $data);
         $this->view('templets/admin_footer');
     }
-    
+
     // Tambah booking (admin bisa input manual)
     public function tambah()
     {
@@ -35,13 +37,13 @@ class Booking extends Controller {
             exit;
         }
     }
-    
+
     // Ambil data untuk edit (AJAX)
     public function getubah()
     {
         echo json_encode($this->model('Booking_model')->getBookingById($_POST['id']));
     }
-    
+
     // Update booking
     public function ubah()
     {
@@ -55,7 +57,7 @@ class Booking extends Controller {
             exit;
         }
     }
-    
+
     // Update status booking saja
     public function updatestatus()
     {
@@ -69,7 +71,7 @@ class Booking extends Controller {
             exit;
         }
     }
-    
+
     // Hapus booking
     public function hapus($id)
     {
