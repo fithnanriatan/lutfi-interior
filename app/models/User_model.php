@@ -11,6 +11,13 @@ class User_model
         $this->db = new Database;
     }
 
+    // Ambil semua user
+    public function getAllUsers()
+    {
+        $this->db->query('SELECT * FROM ' . $this->table);
+        return $this->db->resultSet();
+    }
+
     // Ambil user berdasarkan username
     public function getUserByUsername($username)
     {

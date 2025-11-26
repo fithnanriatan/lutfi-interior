@@ -1,7 +1,6 @@
 <?php
 class App
 {
-
     // default [~3]
     protected $controller = 'Home';
     protected $method = 'index';

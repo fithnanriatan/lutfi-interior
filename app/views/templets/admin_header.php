@@ -159,7 +159,8 @@
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
-            <li>
+            <hr>
+            <!-- <li>
                 <a href="<?= BASEURL; ?>/service" <?= (strpos($_SERVER['REQUEST_URI'], '/service') !== false) ? 'class="active"' : ''; ?>>
                     <i class="fas fa-th-large"></i> Kelola Layanan
                 </a>
@@ -178,7 +179,13 @@
                 <a href="<?= BASEURL; ?>/review" <?= (strpos($_SERVER['REQUEST_URI'], '/review') !== false) ? 'class="active"' : ''; ?>>
                     <i class="fas fa-star"></i> Kelola Review
                 </a>
-            </li>
+            </li> -->
+            <hr>
+            <li>
+                <a href="<?= BASEURL; ?>/user" <?= (strpos($_SERVER['REQUEST_URI'], '/user') !== false) ? 'class="active"' : ''; ?>>
+                    <i class="fas fa-user"></i> Kelola User
+                </a>
+            </li> 
             <li>
                 <a href="<?= BASEURL; ?>" target="_blank">
                     <i class="fas fa-external-link-alt"></i> Lihat Website
