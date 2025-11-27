@@ -2,7 +2,7 @@
 
 class User extends Controller
 {
-
+    // lutfi-interior/user
     public function index()
     {
         $data['title'] = 'Data User - Lutfi Interior';
@@ -18,20 +18,17 @@ class User extends Controller
     {
         if ($this->model('User_model')->addUser($_POST) > 0) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success', 'User');
-            header('Location: ' . BASEURL . '/user');
-            exit;
         } else {
             Flasher::setFlash('gagal', 'ditambahkan', 'danger', 'User');
-            header('Location: ' . BASEURL . '/user');
-            exit;
         }
+        header('Location: ' . BASEURL . '/user');
+        exit;
     }
 
     // Update password user
     public function updatePassword($id)
     {
         $user = $this->model('User_model')->getUserById($id);
-        var_dump($user); die;
 
         if (!password_verify($_POST['old_password'], $user['password'])) {
             Flasher::setFlash('gagal', 'diupdate', 'danger', 'Password lama salah');
@@ -48,8 +45,6 @@ class User extends Controller
         header('Location: ' . BASEURL . '/user');
         exit;
     }
-
-
 
     // Hapus user
     public function hapus($id)

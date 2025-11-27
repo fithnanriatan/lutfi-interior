@@ -34,21 +34,8 @@ class Booking_model {
         $this->db->bind('id', $id);
         return $this->db->single();
     }
-    
-    // Ambil booking yang pending
-    public function getPendingBookings()
-    {
-        $query = "SELECT b.*, s.name as service_name 
-                  FROM {$this->table} b 
-                  LEFT JOIN services s ON b.service_id = s.id 
-                  WHERE b.status = 'pending' 
-                  ORDER BY b.created_at DESC 
-                  LIMIT 5";
-        
-        $this->db->query($query);
-        return $this->db->resultSet();
-    }
-    
+
+     
     // Tambah booking baru (dari customer)
     public function addBooking($data)
     {
@@ -107,6 +94,20 @@ class Booking_model {
         $this->db->bind('id', $id);
         $this->db->execute();
         return $this->db->rowCount();
+    }
+    
+    // Ambil booking yang pending
+    public function getPendingBookings()
+    {
+        $query = "SELECT b.*, s.name as service_name 
+                  FROM {$this->table} b 
+                  LEFT JOIN services s ON b.service_id = s.id 
+                  WHERE b.status = 'pending' 
+                  ORDER BY b.created_at DESC 
+                  LIMIT 5";
+        
+        $this->db->query($query);
+        return $this->db->resultSet();
     }
     
     // Hitung total booking

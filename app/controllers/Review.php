@@ -62,6 +62,11 @@ class Review extends Controller {
         exit;
     }
     
+    // Ambil data untuk edit (AJAX)
+    public function getubah()  // fungsi untuk mengambil data review berdasarkan id
+    {
+        echo json_encode($this->model('Review_model')->getReviewById($_POST['id']));
+    }
     
     // Approve review
     public function approve($id)
@@ -85,11 +90,5 @@ class Review extends Controller {
         }
         header('Location: ' . BASEURL . '/review');
         exit;
-    }
-    
-    // Ambil data untuk edit (AJAX)
-    public function getubah()  // fungsi untuk mengambil data review berdasarkan id
-    {
-        echo json_encode($this->model('Review_model')->getReviewById($_POST['id']));
     }
 }

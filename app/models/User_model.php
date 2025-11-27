@@ -1,29 +1,20 @@
 <?php
 
-class User_model
-{
-
+class User_model {
+    
     private $table = 'users';
     private $db;
-
+    
     public function __construct()
     {
         $this->db = new Database;
     }
-
+    
     // Ambil semua user
     public function getAllUsers()
     {
-        $this->db->query('SELECT * FROM ' . $this->table);
+        $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
         return $this->db->resultSet();
-    }
-
-    // Ambil user berdasarkan username
-    public function getUserByUsername($username)
-    {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE username = :username');
-        $this->db->bind('username', $username);
-        return $this->db->single();
     }
 
     // Ambil user berdasarkan ID
@@ -37,14 +28,12 @@ class User_model
     // Tambah user baru
     public function addUser($data)
     {
-        $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
-
         $query = "INSERT INTO users (username, password, name) 
-                  VALUES (:username, :password, :name)";
+                    VALUES (:username, :password, :name)";
 
         $this->db->query($query);
         $this->db->bind('username', $data['username']);
-        $this->db->bind('password', $hashedPassword);
+        $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
         $this->db->bind('name', $data['name']);
 
         $this->db->execute();
@@ -52,14 +41,25 @@ class User_model
     }
 
     // Update password
-    public function updatePassword($id, $newPassword)
+    public function updatePassword($id, $new_password)
     {
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
         $query = "UPDATE users SET password = :password WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind('password', password_hash($new_password, PASSWORD_DEFAULT));
+        $this->db->bind('id', $id);
+
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    // Hapus user
+    public function deleteUser($id)
+    {
+        $query = "DELETE FROM users WHERE id = :id";
+
         $this->db->query($query);
         $this->db->bind('id', $id);
-        $this->db->bind('password', $hashedPassword);
 
         $this->db->execute();
         return $this->db->rowCount();

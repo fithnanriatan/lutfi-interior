@@ -36,5 +36,36 @@ class Portfolio extends Controller {
             exit;
         }
     }
+
+    // Ambil data untuk edit (AJAX)
+    public function getUbah(){
+        echo json_encode($this->model('Portfolio_model')->getPortfolioById($_POST['id']));
+    }
+
+    // Update portfolio
+    public function ubah()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') { // jika form disubmit
+            if ($this->model('Portfolio_model')->updatePortfolio($_POST, $_FILES) > 0) { // proses update data
+                Flasher::setFlash('Portfolio berhasil', 'diubah', 'success'); // jika berhasil, tampilkan pesan sukses
+            } else {
+                Flasher::setFlash('Tidak ada perubahan', 'atau gagal update', 'warning'); // jika gagal, tampilkan pesan gagal
+            }
+            header('Location: ' . BASEURL . '/portfolio'); // kembali ke halaman portfolio
+            exit;
+        }
+    }
+
+    // Hapus portfolio
+    public function hapus($id)
+    {
+        if ($this->model('Portfolio_model')->deletePortfolio($id) > 0) {
+            Flasher::setFlash('Portfolio berhasil', 'dihapus', 'success');
+        } else {
+            Flasher::setFlash('Portfolio gagal', 'dihapus', 'danger');
+        }
+        header('Location: ' . BASEURL . '/portfolio');
+        exit;
+    }
 }
 ?>
