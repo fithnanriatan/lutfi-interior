@@ -16,17 +16,17 @@ class Dashboard extends Controller {
         $data['title'] = 'Dashboard Admin - Lutfi Interior';
         
         // Statistik
-        // $data['totalServices'] = $this->model('Service_model')->countServices();
-        // $data['totalBookings'] = $this->model('Booking_model')->countBookings();
-        // $data['totalPortfolios'] = $this->model('Portfolio_model')->countPortfolios();
-        // $data['totalReviews'] = $this->model('Review_model')->countReviews();
+        $data['totalServices'] = $this->model('Service_model')->countServices();
+        $data['totalBookings'] = $this->model('Booking_model')->countBookings();
+        $data['totalPortfolios'] = $this->model('Portfolio_model')->countPortfolios();
+        $data['totalReviews'] = $this->model('Review_model')->countReviews();
         
-        // // Data pending
-        // $data['pendingBookings'] = $this->model('Booking_model')->countByStatus('pending');
-        // $data['pendingReviews'] = $this->model('Review_model')->countPendingReviews();
+        // Data pending
+        $data['pendingBookings'] = $this->model('Booking_model')->countByStatus('pending');
+        $data['pendingReviews'] = $this->model('Review_model')->countPendingReviews();
         
-        // // Recent bookings
-        // $data['recentBookings'] = $this->model('Booking_model')->getPendingBookings();
+        // Recent bookings
+        $data['recentBookings'] = $this->model('Booking_model')->getPendingBookings();
         
         $this->view('templets/admin_header', $data);
         $this->view('admin/dashboard', $data);
