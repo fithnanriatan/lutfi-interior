@@ -17,6 +17,14 @@ class User_model {
         return $this->db->resultSet();
     }
 
+       // Ambil user berdasarkan username
+    public function getUserByUsername($username)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE username = :username');
+        $this->db->bind('username', $username);
+        return $this->db->single();
+    }
+
     // Ambil user berdasarkan ID
     public function getUserById($id)
     {
